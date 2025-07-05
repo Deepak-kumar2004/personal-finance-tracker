@@ -74,6 +74,23 @@ pip install --upgrade pip
 print_status "Installing dependencies..."
 pip install -r requirements.txt
 
+# Ask about development dependencies
+echo
+read -p "Install development dependencies (linting, formatting, etc.)? (y/N): " install_dev
+if [[ $install_dev =~ ^[Yy]$ ]]; then
+    print_status "Installing development dependencies..."
+    pip install -r requirements-dev.txt
+    pip install -e .[dev]
+    
+    # Install pre-commit hooks
+    print_status "Installing pre-commit hooks..."
+    pre-commit install || print_warning "Pre-commit installation failed - install manually with 'make pre-commit-install'"
+    
+    print_success "Development environment set up"
+else
+    print_status "Skipping development dependencies"
+fi
+
 # Create environment file if it doesn't exist
 if [ ! -f ".env" ]; then
     print_status "Creating .env file from template..."
@@ -107,9 +124,11 @@ echo "  2. Run the application: python run.py"
 echo "  3. Open your browser to: http://localhost:5000"
 echo
 echo "For development:"
-echo "  - Install dev dependencies: pip install -e .[dev]"
-echo "  - Run tests: pytest"
-echo "  - Format code: black ."
+echo "  - Install dev dependencies: pip install -r requirements-dev.txt"
+echo "  - Install pre-commit hooks: make pre-commit-install"
+echo "  - Run all checks: make all-checks"
+echo "  - Format code: make format"
+echo "  - Run tests: pytest (when implemented)"
 echo
 echo "📚 Documentation:"
 echo "  - README.md - General information and API"

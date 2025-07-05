@@ -174,28 +174,50 @@ DATA_DIR=user_data
 ```bash
 # Automated setup with development dependencies
 ./setup.sh
-pip install -e .[dev]
+# Choose 'y' when prompted for development dependencies
 
 # Or using Make
 make setup
 make install-dev
+make pre-commit-install
 ```
 
-### Development Tools
+### Code Quality & CI/CD
+The project includes comprehensive code quality tools and GitHub Actions workflows:
+
+**Automated Checks on Every Commit/PR:**
+- Code formatting (Black)
+- Linting (Pylint, flake8)
+- Type checking (mypy)
+- Security scanning (Bandit, Safety)
+- Architecture compliance validation
+- Import sorting (isort)
+
+**Local Development Tools:**
 ```bash
 # Code formatting
 make format          # Format code with black
 make check-format    # Check formatting
 
 # Code quality
-make lint           # Run flake8 linting
+make lint           # Run pylint + flake8 linting
 make type-check     # Run mypy type checking
 make all-checks     # Run all quality checks
+
+# Pre-commit hooks (run automatically on git commit)
+make pre-commit-install  # Install hooks
+make pre-commit-run     # Run hooks manually
 
 # Running the app
 make run            # Start the application
 make clean          # Clean up temporary files
 ```
+
+### GitHub Actions Workflows
+- **CI Pipeline** (`.github/workflows/ci.yml`): Runs on push/PR with full test suite
+- **PR Checks** (`.github/workflows/pr-checks.yml`): Additional validation for pull requests
+- **Architecture Compliance**: Validates modular structure and design principles
+- **Security Scanning**: Checks for vulnerabilities in dependencies and code
 
 ### Adding New Features
 1. **Models**: Add new data models in `app/models/`

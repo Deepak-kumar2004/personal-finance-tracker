@@ -1,7 +1,7 @@
 # Personal Finance Tracker - Makefile
 # Provides common development tasks
 
-.PHONY: help install install-dev setup run clean test lint format check-format type-check all-checks
+.PHONY: help install install-dev setup run clean test lint format check-format type-check all-checks pre-commit-install pre-commit-run
 
 # Default target
 help:
@@ -11,6 +11,7 @@ help:
 	@echo "  make setup          - Run setup script (creates venv, installs deps)"
 	@echo "  make install        - Install dependencies"
 	@echo "  make install-dev    - Install with development dependencies"
+	@echo "  make pre-commit-install - Install pre-commit hooks"
 	@echo ""
 	@echo "Development Commands:"
 	@echo "  make run            - Run the application"
@@ -20,6 +21,7 @@ help:
 	@echo "  make check-format   - Check code formatting"
 	@echo "  make type-check     - Run type checking with mypy"
 	@echo "  make all-checks     - Run all code quality checks"
+	@echo "  make pre-commit-run - Run pre-commit hooks manually"
 	@echo ""
 	@echo "Utility Commands:"
 	@echo "  make clean          - Clean up temporary files"
@@ -35,7 +37,17 @@ install:
 
 install-dev:
 	pip install -r requirements.txt
+	pip install -r requirements-dev.txt
 	pip install -e .[dev]
+
+# Pre-commit hooks
+pre-commit-install:
+	@echo "Installing pre-commit hooks..."
+	pre-commit install
+
+pre-commit-run:
+	@echo "Running pre-commit hooks..."
+	pre-commit run --all-files
 
 # Development
 run:
@@ -50,6 +62,8 @@ test:
 lint:
 	@echo "Running flake8..."
 	flake8 app/ config/ run.py --max-line-length=88 --extend-ignore=E203,W503
+	@echo "Running pylint..."
+	pylint app/ config/ run.py --exit-zero --reports=no --score=no
 
 format:
 	@echo "Formatting code with black..."
@@ -65,6 +79,7 @@ type-check:
 
 all-checks: check-format lint type-check
 	@echo "All code quality checks completed!"
+	@echo "Consider running: make pre-commit-run"
 
 # Utility
 clean:
