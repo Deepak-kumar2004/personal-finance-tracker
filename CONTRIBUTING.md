@@ -1,33 +1,15 @@
-# Contributing to Money Manager
+# Contributing to Personal Finance Tracker
 
-Thank you for your interest in contributing to Money Manager! 
+Thank you for your interest in contributing to Personal Finance Tracker! 
 
 ## 🚀 Getting Started
 
 1. Fork the repository
-2. Clone your fork: `git clone https://github.com/yourusername/money-manager.git`
-3. Create a virtual environment: `python -m venv .venv`
-4. Activate it: `source .venv/bin/activate` (Linux/Mac) or `.venv\Scripts\activate` (Windows)
-5. Install dependencies: `pip install -r requirements.txt`
-6. Run the application: `python app.py`
+2. Clone your fork: `git clone https://github.com/yourusername/personal-finance-tracker.git`
+3. Follow the [Installation Instructions](README.md#installation) in the README
+4. Create a feature branch for your contribution
 
-## 🔧 Development Setup
-
-### Prerequisites
-- Python 3.8 or higher
-- Flask 2.0+
-- Git
-
-### Installation
-```bash
-# Run the setup script
-./setup.sh
-
-# Or manual setup
-python -m venv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-```
+> **Note**: For detailed setup instructions and architecture overview, see [README.md](README.md) and [ARCHITECTURE.md](ARCHITECTURE.md).
 
 ## 📝 Code Style
 
@@ -41,8 +23,10 @@ pip install -r requirements.txt
 
 Run tests before submitting:
 ```bash
-python test_app.py
+python -m pytest  # Once tests are implemented
 ```
+
+> **Note**: Comprehensive testing framework is planned for future development.
 
 ## 📋 Pull Request Process
 
@@ -76,20 +60,20 @@ We welcome feature requests! Please provide:
 
 ## 📖 Documentation
 
-- Update README.md for new features
+- Update README.md for user-facing changes
+- Update ARCHITECTURE.md for structural changes
 - Add inline comments for complex code
 - Update API documentation if needed
 
 ## 🏗️ Architecture
 
-The application follows a modular structure:
-- `app.py` - Main application entry point
-- `config.py` - Configuration management
-- `models.py` - Data models
-- `auth.py` - Authentication services
-- `*_routes.py` - Route handlers
-- `exceptions.py` - Custom exceptions
-- `logger.py` - Logging configuration
+The application follows a modular architecture with clear separation of concerns. For detailed information about the project structure and design principles, see [ARCHITECTURE.md](ARCHITECTURE.md).
+
+Key principles:
+- Single Responsibility Principle (SRP)
+- Clear separation between models, services, and routes
+- Dependency injection for testability
+- Consistent error handling and logging
 
 ## ❓ Questions?
 
